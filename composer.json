@@ -1,0 +1,18 @@
+{
+    "name": "jnavarrete/bingo-kata",
+    "description": "bingo kata",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Navarrete",
+            "email": "janavarretecristino@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">= 7.2"
+    }
+}
