@@ -4,15 +4,17 @@ namespace Bingo;
 
 interface CardInterface
 {
+    public function print(): void;
+
     /**
      * @param int $number
-     */
-    public function visitNumber(int $number): void;
-
-    /**
+     *
      * @return bool
      */
-    public function checkAllVisited(): bool;
+    public function contains(int $number): bool;
 
-    public function print(): void;
+    /**
+     * @return array
+     */
+    public function flattenNumbers(): array;
 }

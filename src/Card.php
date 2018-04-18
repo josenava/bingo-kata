@@ -5,64 +5,68 @@ namespace Bingo;
 class Card implements CardInterface
 {
     /** @var array */
-    private $checkedNumbers;
-    /** @var array */
-    private $numbers;
-    /** @var int */
-    private $totalChecked;
+    private $matrix;
 
-    private function __construct()
-    {
-        $this->checkedNumbers = [];
-        $this->totalChecked = 0;
-    }
+    /** @var int[] */
+    private $flattenNumbers;
 
     public static function fromNumbers(array $numbers): self
     {
         $card = new self();
-        $card->setNumbers($numbers);
+        $card->setMatrix($numbers);
+        $card->setFlattenNumbers();
 
         return $card;
     }
 
     /**
-     * @param array $numbers
+     * @param array $matrix
      */
-    public function setNumbers(array $numbers): void
+    public function setMatrix(array $matrix): void
     {
-        $this->numbers = $numbers;
+        $this->matrix = $matrix;
     }
 
     /**
-     * @param int $number
+     * @return array
      */
-    public function visitNumber(int $number): void
+    public function flattenNumbers(): array
     {
-        foreach ($this->numbers as $row) {
-            if (in_array($number, $row, true)) {
-                $this->checkedNumbers[] = $number;
-                $this->totalChecked++;
-                break;
-            }
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkAllVisited(): bool
-    {
-        return $this->totalChecked === count($this->numbers)**2-1;
+        return $this->flattenNumbers;
     }
 
     public function print(): void
     {
-        for ($j = count($this->numbers[0]) - 1; $j >= 0; $j--) {
-            for ($i = 0; $i < count($this->numbers); $i++) {
-                echo $this->numbers[$i][$j].' ';
+        for ($j = count($this->matrix[0]) - 1; $j >= 0; $j--) {
+            for ($i = 0; $i < count($this->matrix); $i++) {
+                echo $this->matrix[$i][$j].' ';
             }
             echo PHP_EOL;
         }
-        echo sprintf('Checked numbers: %s', implode(' ', $this->checkedNumbers)).PHP_EOL;
+    }
+
+    /**
+     * @param int $number
+     *
+     * @return bool
+     */
+    public function contains(int $number): bool
+    {
+        return in_array($number, $this->flattenNumbers);
+    }
+
+    public function setFlattenNumbers(): void
+    {
+        $flattenMatrix = array_reduce(
+            $this->matrix,
+            function (array $carry, array $row) {
+                return array_merge($carry, $row);
+            },
+            []
+        );
+
+        $this->flattenNumbers = array_filter($flattenMatrix, function ($element) {
+            return is_int($element);
+        });
     }
 }

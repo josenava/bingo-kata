@@ -9,51 +9,55 @@ class Bingo
     /** @var CardGeneratorInterface */
     private $cardGenerator;
 
-    /** @var CardInterface[] */
-    private $cards;
+    /** @var Player[] */
+    private $players;
 
-    /** @var int[] */
-    private $numbers;
+    /** @var BingoCallerInterface */
+    private $bingoCaller;
 
-    /** @var int[] */
-    private $visitedNumbers;
-
-    /** @var CardInterface[] */
+    /** @var Player[] */
     private $winners;
 
+
     /**
+     * @param BingoCallerInterface   $bingoCaller
      * @param CardGeneratorInterface $cardGenerator
      * @param int                    $numPlayers
      */
-    public function __construct(CardGeneratorInterface $cardGenerator, int $numPlayers)
-    {
+    public function __construct(
+        BingoCallerInterface $bingoCaller,
+        CardGeneratorInterface $cardGenerator,
+        int $numPlayers
+    ) {
         $this->cardGenerator = $cardGenerator;
-        $this->createCards($numPlayers);
-        $this->numbers = RandomIntRange::create(1, 75, 75);
-        $this->visitedNumbers = [];
+        $this->enrollPlayers($numPlayers);
         $this->winners = [];
+        $this->bingoCaller = $bingoCaller;
     }
 
     public function runGame(): void
     {
-        $numbersCount = 0;
-        while ($numbersCount < count($this->numbers) && count($this->winners) === 0) {
-            $currentNumber = $this->numbers[$numbersCount];
-            $numbersCount++;
-            $this->visitedNumbers[] = $currentNumber;
-            /** CardInterface $card */
-            foreach ($this->cards as $card) {
-                $card->visitNumber($currentNumber);
-                if ($card->checkAllVisited()) {
-                    $this->winners[] = $card;
+        while (!$this->bingoCaller->endGame()) {
+            $currentNumber = $this->bingoCaller->shoutNumber();
+            echo sprintf('Shouted: %d', $currentNumber).PHP_EOL;
+            /** Player $player */
+            foreach ($this->players as $player) {
+                $player->checkNumber($currentNumber);
+                if ($player->checkAllCrossed() && $this->bingoCaller->checkWinnerNumbers($player->getCard()->flattenNumbers())) {
+                    $this->winners[] = $player;
                 }
             }
         }
-        echo sprintf('Total winners: %d', count($this->winners));
-        echo 'Game ended'.PHP_EOL;
+        echo sprintf(
+            'Winners: %s',
+            implode(' ', array_map(function (Player $player) { return (string) $player;}, $this->winners))
+        ).PHP_EOL;
     }
 
-    private function createCards(int $numPlayers)
+    /**
+     * @param int $numPlayers
+     */
+    private function enrollPlayers(int $numPlayers): void
     {
         if ($numPlayers > self::MAX_NUM_PLAYERS) {
             throw new \InvalidArgumentException(
@@ -62,7 +66,7 @@ class Bingo
         }
 
         for ($i = 0; $i < $numPlayers; $i++) {
-            $this->cards[] = $this->cardGenerator->generate();
+            $this->players[] = new Player($this->cardGenerator->generate());
         }
     }
 }
