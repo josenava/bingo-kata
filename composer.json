@@ -18,6 +18,14 @@
     "autoload": {
         "psr-4": {
             "Bingo\\": "src/"
+        },
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     }
 }
