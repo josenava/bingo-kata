@@ -4,22 +4,41 @@ namespace Bingo;
 
 class UsCardGenerator implements CardGeneratorInterface
 {
-    private const DIMENSIONS = [5, 5];
-    private const RANGE = [
-        'min' => 1,
-        'max' => 75,
-    ];
-
     private const FREE_SPACE_POSITION = [2, 2];
+    /**
+     * @var int
+     */
+    private $minRange;
+    /**
+     * @var int
+     */
+    private $maxRange;
+    /**
+     * @var array
+     */
+    private $dimensions;
+
+    /**
+     * @param int   $minRange
+     * @param int   $maxRange
+     * @param array $dimensions
+     */
+    public function __construct(int $minRange, int $maxRange, array $dimensions)
+    {
+
+        $this->minRange = $minRange;
+        $this->maxRange = $maxRange;
+        $this->dimensions = $dimensions;
+    }
 
     public function generate(): CardInterface
     {
         $numbers = [];
-        for ($i = 0; $i < self::DIMENSIONS[0]; $i++) {
+        for ($i = 0; $i < $this->dimensions[0]; $i++) {
             $numbers[$i] = RandomIntRange::create(
-                $i*self::RANGE['max']/self::DIMENSIONS[0]+1,
-                ($i+1)*self::RANGE['max']/self::DIMENSIONS[0],
-                self::DIMENSIONS[0]
+                $i*$this->maxRange/$this->dimensions[0]+1,
+                ($i+1)*$this->maxRange/$this->dimensions[0],
+                $this->dimensions[0]
             );
             rsort($numbers[$i]);
         }
@@ -28,4 +47,19 @@ class UsCardGenerator implements CardGeneratorInterface
         return Card::fromNumbers($numbers);
     }
 
+    /**
+     * @return int
+     */
+    public function maxRange(): int
+    {
+        return $this->maxRange;
+    }
+
+    /**
+     * @return int
+     */
+    public function minRange(): int
+    {
+        return $this->minRange;
+    }
 }

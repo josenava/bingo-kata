@@ -14,9 +14,13 @@ class BingoCaller implements BingoCallerInterface
     private $existsWinner;
 
 
-    public function __construct()
+    /**
+     * @param int $minRange
+     * @param int $maxRange
+     */
+    public function __construct(int $minRange, int $maxRange)
     {
-        $this->numbersToShout = RandomIntRange::create(1, 75, 75);
+        $this->numbersToShout = RandomIntRange::create($minRange, $maxRange, $maxRange);
         $this->shoutedNumbers = [];
         $this->totalShouted = 0;
         $this->existsWinner = false;

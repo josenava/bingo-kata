@@ -18,7 +18,6 @@ class Bingo
     /** @var Player[] */
     private $winners;
 
-
     /**
      * @param BingoCallerInterface   $bingoCaller
      * @param CardGeneratorInterface $cardGenerator
