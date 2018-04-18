@@ -1,5 +1,7 @@
 <?php
 
+namespace Bingo;
+
 class Card implements CardInterface
 {
     /** @var array */
@@ -55,12 +57,12 @@ class Card implements CardInterface
 
     public function print(): void
     {
-        for ($i = 0; $i < count($this->numbers); $i++) {
-            for ($j = count($this->numbers[0]) - 1; $j >= 0; $j--) {
+        for ($j = count($this->numbers[0]) - 1; $j >= 0; $j--) {
+            for ($i = 0; $i < count($this->numbers); $i++) {
                 echo $this->numbers[$i][$j].' ';
             }
             echo PHP_EOL;
         }
-        echo sprintf('Checked numbers: %s', implode(' ', $this->checkedNumbers));
+        echo sprintf('Checked numbers: %s', implode(' ', $this->checkedNumbers)).PHP_EOL;
     }
 }

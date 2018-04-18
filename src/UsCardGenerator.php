@@ -1,5 +1,7 @@
 <?php
 
+namespace Bingo;
+
 class UsCardGenerator implements CardGeneratorInterface
 {
     private const DIMENSIONS = [5, 5];
@@ -14,27 +16,16 @@ class UsCardGenerator implements CardGeneratorInterface
     {
         $numbers = [];
         for ($i = 0; $i < self::DIMENSIONS[0]; $i++) {
-            $numbers[$i] = $this->generateRandomRow($i);
+            $numbers[$i] = RandomIntRange::create(
+                $i*self::RANGE['max']/self::DIMENSIONS[0]+1,
+                ($i+1)*self::RANGE['max']/self::DIMENSIONS[0],
+                self::DIMENSIONS[0]
+            );
+            rsort($numbers[$i]);
         }
         $numbers[self::FREE_SPACE_POSITION[0]][self::FREE_SPACE_POSITION[1]] = 'X';
 
         return Card::fromNumbers($numbers);
     }
 
-    /**
-     * @param $index
-     * @return array
-     */
-    private function generateRandomRow($index): array
-    {
-        $column = range(
-            $index * self::RANGE['max'] / self::DIMENSIONS[0],
-            ($index + 1) * self::RANGE['max'] / self::DIMENSIONS[0]
-        );
-        shuffle($column);
-        $column = array_slice($column, 0, self::DIMENSIONS[0]);
-        sort($column);
-
-        return $column;
-    }
 }

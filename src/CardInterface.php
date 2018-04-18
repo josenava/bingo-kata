@@ -1,5 +1,7 @@
 <?php
 
+namespace Bingo;
+
 interface CardInterface
 {
     /**
