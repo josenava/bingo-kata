@@ -2,6 +2,8 @@
 
 namespace Bingo;
 
+use Bingo\Generator\CardGeneratorInterface;
+
 class Bingo
 {
     private const MAX_NUM_PLAYERS = 1000;

@@ -17,6 +17,8 @@ class BingoCaller implements BingoCallerInterface
     /**
      * @param int $minRange
      * @param int $maxRange
+     *
+     * @throws \Exception
      */
     public function __construct(int $minRange, int $maxRange)
     {
@@ -25,6 +27,7 @@ class BingoCaller implements BingoCallerInterface
         $this->totalShouted = 0;
         $this->existsWinner = false;
     }
+
     /**
      * @return int
      */

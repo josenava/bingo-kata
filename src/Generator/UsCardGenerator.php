@@ -1,21 +1,20 @@
 <?php
 
-namespace Bingo;
+namespace Bingo\Generator;
+
+use Bingo\Card;
+use Bingo\CardInterface;
+use Bingo\RandomIntRange;
 
 class UsCardGenerator implements CardGeneratorInterface
 {
     private const FREE_SPACE_POSITION = [2, 2];
-    /**
-     * @var int
-     */
+
+    /** @var int */
     private $minRange;
-    /**
-     * @var int
-     */
+    /** @var int */
     private $maxRange;
-    /**
-     * @var array
-     */
+    /** @var array */
     private $dimensions;
 
     /**
@@ -33,6 +32,8 @@ class UsCardGenerator implements CardGeneratorInterface
 
     /**
      * @return CardInterface
+     *
+     * @throws \Exception
      */
     public function generate(): CardInterface
     {

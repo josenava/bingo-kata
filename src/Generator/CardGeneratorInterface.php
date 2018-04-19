@@ -1,6 +1,8 @@
 <?php
 
-namespace Bingo;
+namespace Bingo\Generator;
+
+use Bingo\CardInterface;
 
 interface CardGeneratorInterface
 {

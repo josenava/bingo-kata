@@ -9,7 +9,9 @@ class RandomIntRange
      * @param int $max
      * @param int $length
      *
-     * @return array
+     * @return int[]
+     *
+     * @throws \Exception
      */
     public static function create(int $min, int $max, int $length): array
     {
