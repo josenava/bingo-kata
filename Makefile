@@ -2,7 +2,7 @@
 
 start-docker:
 	docker-compose up -d
-stop:
+stop-docker:
 	docker-compose down
 ssh:
 	docker exec -it bingo-php sh
