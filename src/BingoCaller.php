@@ -15,7 +15,6 @@ class BingoCaller implements BingoCallerInterface
     /** @var bool */
     private $existsWinner;
 
-
     /**
      * @param int $minRange
      * @param int $maxRange
