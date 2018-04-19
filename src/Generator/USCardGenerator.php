@@ -4,6 +4,7 @@ namespace Bingo\Generator;
 
 use Bingo\Card;
 use Bingo\CardInterface;
+use Bingo\Value\MatrixDimensions;
 use Bingo\Value\RandomIntRange;
 
 class USCardGenerator implements CardGeneratorInterface
@@ -12,14 +13,14 @@ class USCardGenerator implements CardGeneratorInterface
 
     /** @var int */
     private $maxRange;
-    /** @var array */
+    /** @var MatrixDimensions */
     private $dimensions;
 
     /**
-     * @param int   $maxRange
-     * @param array $dimensions
+     * @param int              $maxRange
+     * @param MatrixDimensions $dimensions
      */
-    public function __construct(int $maxRange, array $dimensions)
+    public function __construct(int $maxRange, MatrixDimensions $dimensions)
     {
         $this->maxRange = $maxRange;
         $this->dimensions = $dimensions;
@@ -33,13 +34,13 @@ class USCardGenerator implements CardGeneratorInterface
     public function generate(): CardInterface
     {
         $cardNumberMatrix = [];
-        for ($i = 0; $i < $this->dimensions[0]; $i++) {
-            $cardNumberMatrix[$i] = RandomIntRange::create(
-                $i*$this->maxRange/$this->dimensions[0]+1,
-                ($i+1)*$this->maxRange/$this->dimensions[0],
-                $this->dimensions[0]
+        for ($column = 0; $column < $this->dimensions->getColumns(); $column++) {
+            $cardNumberMatrix[$column] = RandomIntRange::create(
+                $column*$this->maxRange/$this->dimensions->getColumns()+1,
+                ($column+1)*$this->maxRange/$this->dimensions->getColumns(),
+                $this->dimensions->getRows()
             );
-            rsort($cardNumberMatrix[$i]);
+            rsort($cardNumberMatrix[$column]);
         }
         $cardNumberMatrix[self::FREE_SPACE_POSITION[0]][self::FREE_SPACE_POSITION[1]] = 'X';
 

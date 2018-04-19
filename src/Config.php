@@ -2,6 +2,8 @@
 
 namespace Bingo;
 
+use Bingo\Value\MatrixDimensions;
+
 class Config
 {
     /** @var string */
@@ -10,19 +12,19 @@ class Config
     private $minRange;
     /** @var int */
     private $maxRange;
-    /** @var array */
+    /** @var MatrixDimensions */
     private $dimensions;
     /** @var int */
     private $numPlayers;
 
     /**
-     * @param string $version
-     * @param int    $minRange
-     * @param int    $maxRange
-     * @param array  $dimensions
-     * @param int    $numPlayers
+     * @param string           $version
+     * @param int              $minRange
+     * @param int              $maxRange
+     * @param MatrixDimensions $dimensions
+     * @param int              $numPlayers
      */
-    private function __construct(string $version, int $minRange, int $maxRange, array $dimensions, int $numPlayers)
+    private function __construct(string $version, int $minRange, int $maxRange, MatrixDimensions $dimensions, int $numPlayers)
     {
         $this->version = $version;
         $this->minRange = $minRange;
@@ -40,15 +42,15 @@ class Config
      */
     public static function fromArgs(array $argv): self
     {
-        if (count($argv) < 2) {
-            throw new \InvalidArgumentException(sprintf('Usage %s %s', $argv[0], 'us/uk (bingo version)'));
+        if (count($argv) < 7) {
+            throw new \InvalidArgumentException(sprintf('Wrong usage please check --help'));
         }
         if ($argv[1] !== 'us') {
             // ready for implementing UKCardGenerator
             throw new \InvalidArgumentException('Mode not implemented yet.');
         }
 
-        return new self($argv[1], $argv[2], $argv[3], [$argv[4], $argv[5]], $argv[6]);
+        return new self($argv[1], $argv[2], $argv[3], new MatrixDimensions($argv[4], $argv[5]), $argv[6]);
     }
 
     /**
@@ -76,9 +78,9 @@ class Config
     }
 
     /**
-     * @return array
+     * @return MatrixDimensions
      */
-    public function getDimensions(): array
+    public function getDimensions(): MatrixDimensions
     {
         return $this->dimensions;
     }
