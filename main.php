@@ -25,10 +25,10 @@ if ($argv[1] === '--help') {
 try {
     $config = Config::fromArgs($argv);
     $logger = new Logger('Bingo');
-    $cardGenerator = new UsCardGenerator($config->getMinRange(), $config->getMaxRange(), $config->getDimensions());
+    $cardGenerator = new UsCardGenerator($config->getMaxRange(), $config->getDimensions());
 
     $bingo = new Bingo(
-        new BingoCaller($cardGenerator->minRange(), $cardGenerator->maxRange()),
+        new BingoCaller($config->getMinRange(), $config->getMaxRange()),
         $cardGenerator,
         $logger,
         $config->getNumPlayers()

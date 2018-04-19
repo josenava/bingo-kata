@@ -11,20 +11,16 @@ class UsCardGenerator implements CardGeneratorInterface
     private const FREE_SPACE_POSITION = [2, 2];
 
     /** @var int */
-    private $minRange;
-    /** @var int */
     private $maxRange;
     /** @var array */
     private $dimensions;
 
     /**
-     * @param int   $minRange
      * @param int   $maxRange
      * @param array $dimensions
      */
-    public function __construct(int $minRange, int $maxRange, array $dimensions)
+    public function __construct(int $maxRange, array $dimensions)
     {
-        $this->minRange = $minRange;
         $this->maxRange = $maxRange;
         $this->dimensions = $dimensions;
     }
