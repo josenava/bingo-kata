@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Bingo\RandomIntRange;
+use Bingo\Value\RandomIntRange;
 use PHPUnit\Framework\TestCase;
 
 class RandomIntRangeTest extends TestCase

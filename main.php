@@ -5,31 +5,40 @@ require __DIR__.'/vendor/autoload.php';
 use \Bingo\Bingo;
 use Bingo\Generator\UsCardGenerator;
 use \Bingo\BingoCaller;
+use \Bingo\Config;
+use \Monolog\Logger;
 
-if ($argc < 2) {
-    throw new \InvalidArgumentException(sprintf('Usage %s %s', $argv[0], 'us/uk (bingo mode)'));
-}
-//todo check factory CardGeneratorFactory::create()
-if ($argv[1] !== 'us') {
-    // ready for implementing UKCardGenerator
-    throw new \InvalidArgumentException('Mode not implemented yet.');
+if ($argv[1] === '--help') {
+    echo sprintf(
+        'Usage php %s %s %s %s %s %s %s',
+        $argv[0],
+        'us/uk(version uk not implemented yet)',
+        'min_range_of_card_numbers',
+        'max_range_of_card_numbers',
+        'number_of_columns_in_the_card',
+        'number_of_rows_in_the_card',
+        'number_of_players'
+    );
+    exit;
 }
 
 try {
-    $cardGenerator = new UsCardGenerator(1, 75, [5, 5]);
+    $config = Config::fromArgs($argv);
+    $logger = new Logger('Bingo');
+    $cardGenerator = new UsCardGenerator($config->getMinRange(), $config->getMaxRange(), $config->getDimensions());
 
-    $numPlayers = 200;
     $bingo = new Bingo(
         new BingoCaller($cardGenerator->minRange(), $cardGenerator->maxRange()),
         $cardGenerator,
-        $numPlayers
+        $logger,
+        $config->getNumPlayers()
     );
 
-    echo 'Hey the game just started!'.PHP_EOL;
     $bingo->runGame();
-
-    echo 'Game ended'.PHP_EOL;
 } catch (\Exception $exception) {
-    echo $exception->getMessage();
+    $logger->error($exception->getMessage());
 }
+
+
+
 

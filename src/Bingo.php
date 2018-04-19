@@ -3,6 +3,7 @@
 namespace Bingo;
 
 use Bingo\Generator\CardGeneratorInterface;
+use Psr\Log\LoggerInterface;
 
 class Bingo
 {
@@ -19,28 +20,34 @@ class Bingo
 
     /** @var Player[] */
     private $winners;
+    /** @var LoggerInterface */
+    private $logger;
 
     /**
      * @param BingoCallerInterface   $bingoCaller
      * @param CardGeneratorInterface $cardGenerator
+     * @param LoggerInterface        $logger
      * @param int                    $numPlayers
      */
     public function __construct(
         BingoCallerInterface $bingoCaller,
         CardGeneratorInterface $cardGenerator,
+        LoggerInterface $logger,
         int $numPlayers
     ) {
         $this->cardGenerator = $cardGenerator;
         $this->enrollPlayers($numPlayers);
         $this->winners = [];
         $this->bingoCaller = $bingoCaller;
+        $this->logger = $logger;
     }
 
     public function runGame(): void
     {
+        $this->logger->info('Hey the game is about to start, get ready!');
         while (!$this->bingoCaller->endGame()) {
             $currentNumber = $this->bingoCaller->shoutNumber();
-            echo sprintf('Shouted: %d', $currentNumber).PHP_EOL;
+            $this->logger->info(sprintf('Shouted: %d', $currentNumber));
             /** Player $player */
             foreach ($this->players as $player) {
                 $player->checkNumber($currentNumber);
@@ -49,10 +56,12 @@ class Bingo
                 }
             }
         }
-        echo sprintf(
+        $this->logger->info(sprintf(
             'Winners: %s',
             implode(' ', array_map(function (Player $player) { return (string) $player;}, $this->winners))
-        ).PHP_EOL;
+        ));
+
+        $this->logger->info('The game just finished.');
     }
 
     /**

@@ -4,7 +4,7 @@ namespace Bingo\Generator;
 
 use Bingo\Card;
 use Bingo\CardInterface;
-use Bingo\RandomIntRange;
+use Bingo\Value\RandomIntRange;
 
 class UsCardGenerator implements CardGeneratorInterface
 {
@@ -24,7 +24,6 @@ class UsCardGenerator implements CardGeneratorInterface
      */
     public function __construct(int $minRange, int $maxRange, array $dimensions)
     {
-
         $this->minRange = $minRange;
         $this->maxRange = $maxRange;
         $this->dimensions = $dimensions;
@@ -48,22 +47,6 @@ class UsCardGenerator implements CardGeneratorInterface
         }
         $numbers[self::FREE_SPACE_POSITION[0]][self::FREE_SPACE_POSITION[1]] = 'X';
 
-        return Card::fromNumbers($numbers);
-    }
-
-    /**
-     * @return int
-     */
-    public function maxRange(): int
-    {
-        return $this->maxRange;
-    }
-
-    /**
-     * @return int
-     */
-    public function minRange(): int
-    {
-        return $this->minRange;
+        return new Card($numbers);
     }
 }

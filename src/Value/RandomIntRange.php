@@ -1,6 +1,6 @@
 <?php
 
-namespace Bingo;
+namespace Bingo\Value;
 
 class RandomIntRange
 {

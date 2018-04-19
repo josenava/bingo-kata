@@ -2,6 +2,8 @@
 
 namespace Bingo;
 
+use Bingo\Value\RandomIntRange;
+
 class BingoCaller implements BingoCallerInterface
 {
     /** @var int[] */

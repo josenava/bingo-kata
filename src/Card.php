@@ -10,22 +10,15 @@ class Card implements CardInterface
     /** @var int[] */
     private $flattenNumbers;
 
-    public static function fromNumbers(array $numbers): self
-    {
-        $card = new self();
-        $card->setMatrix($numbers);
-        $card->setFlattenNumbers();
-
-        return $card;
-    }
-
     /**
-     * @param array $matrix
+     * @param array $numbers
      */
-    public function setMatrix(array $matrix): void
+    public function __construct(array $numbers)
     {
-        $this->matrix = $matrix;
+        $this->matrix = $numbers;
+        $this->setFlattenNumbers();
     }
+
 
     /**
      * @return array
@@ -55,7 +48,7 @@ class Card implements CardInterface
         return in_array($number, $this->flattenNumbers);
     }
 
-    public function setFlattenNumbers(): void
+    private function setFlattenNumbers(): void
     {
         $flattenMatrix = array_reduce(
             $this->matrix,
