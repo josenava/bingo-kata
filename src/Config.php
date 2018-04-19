@@ -4,10 +4,15 @@ namespace Bingo;
 
 class Config
 {
+    /** @var string */
     private $version;
+    /** @var int */
     private $minRange;
+    /** @var int */
     private $maxRange;
+    /** @var array */
     private $dimensions;
+    /** @var int */
     private $numPlayers;
 
     /**
@@ -26,6 +31,13 @@ class Config
         $this->numPlayers = $numPlayers;
     }
 
+    /**
+     * @param array $argv
+     *
+     * @return Config
+     *
+     * @throws \Exception
+     */
     public static function fromArgs(array $argv): self
     {
         if (count($argv) < 2) {

@@ -3,7 +3,7 @@
 require __DIR__.'/vendor/autoload.php';
 
 use \Bingo\Bingo;
-use Bingo\Generator\UsCardGenerator;
+use Bingo\Generator\USCardGenerator;
 use \Bingo\BingoCaller;
 use \Bingo\Config;
 use \Monolog\Logger;
@@ -25,7 +25,9 @@ if ($argv[1] === '--help') {
 try {
     $config = Config::fromArgs($argv);
     $logger = new Logger('Bingo');
-    $cardGenerator = new UsCardGenerator($config->getMaxRange(), $config->getDimensions());
+    // as there is only an implementation for US rules, it is assigned here, otherwise it would be
+    // taken from $config->getVersion()
+    $cardGenerator = new USCardGenerator($config->getMaxRange(), $config->getDimensions());
 
     $bingo = new Bingo(
         new BingoCaller($config->getMinRange(), $config->getMaxRange()),

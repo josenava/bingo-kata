@@ -19,7 +19,6 @@ class Card implements CardInterface
         $this->setFlattenNumbers();
     }
 
-
     /**
      * @return array
      */
@@ -28,6 +27,9 @@ class Card implements CardInterface
         return $this->flattenNumbers;
     }
 
+    /**
+     * @return string
+     */
     public function __toString(): string
     {
         $card = '';

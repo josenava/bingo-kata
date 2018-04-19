@@ -6,7 +6,7 @@ use Bingo\Card;
 use Bingo\CardInterface;
 use Bingo\Value\RandomIntRange;
 
-class UsCardGenerator implements CardGeneratorInterface
+class USCardGenerator implements CardGeneratorInterface
 {
     private const FREE_SPACE_POSITION = [2, 2];
 
