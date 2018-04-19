@@ -3,6 +3,7 @@
 require __DIR__.'/vendor/autoload.php';
 
 use \Bingo\Bingo;
+use \Bingo\Generator\PlayerGenerator;
 use Bingo\Generator\USCardGenerator;
 use \Bingo\BingoCaller;
 use \Bingo\Config;
@@ -31,9 +32,8 @@ try {
 
     $bingo = new Bingo(
         new BingoCaller($config->getMinRange(), $config->getMaxRange()),
-        $cardGenerator,
-        $logger,
-        $config->getNumPlayers()
+        new PlayerGenerator($cardGenerator, $config->getNumPlayers()),
+        $logger
     );
 
     $bingo->runGame();

@@ -3,14 +3,11 @@
 namespace Bingo;
 
 use Bingo\Generator\CardGeneratorInterface;
+use Bingo\Generator\PlayerGeneratorInterface;
 use Psr\Log\LoggerInterface;
 
 class Bingo
 {
-    public const MAX_NUM_PLAYERS = 1000;
-
-    /** @var CardGeneratorInterface */
-    private $cardGenerator;
     /** @var Player[] */
     private $players;
     /** @var BingoCallerInterface */
@@ -21,19 +18,16 @@ class Bingo
     private $logger;
 
     /**
-     * @param BingoCallerInterface   $bingoCaller
-     * @param CardGeneratorInterface $cardGenerator
-     * @param LoggerInterface        $logger
-     * @param int                    $numPlayers
+     * @param BingoCallerInterface     $bingoCaller
+     * @param PlayerGeneratorInterface $playerGenerator
+     * @param LoggerInterface          $logger
      */
     public function __construct(
         BingoCallerInterface $bingoCaller,
-        CardGeneratorInterface $cardGenerator,
-        LoggerInterface $logger,
-        int $numPlayers
+        PlayerGeneratorInterface $playerGenerator,
+        LoggerInterface $logger
     ) {
-        $this->cardGenerator = $cardGenerator;
-        $this->enrollPlayers($numPlayers);
+        $this->players = $playerGenerator->generate();
         $this->winners = [];
         $this->bingoCaller = $bingoCaller;
         $this->logger = $logger;
@@ -58,21 +52,5 @@ class Bingo
         }
 
         $this->logger->info('The game just finished.');
-    }
-
-    /**
-     * @param int $numPlayers
-     */
-    private function enrollPlayers(int $numPlayers): void
-    {
-        if ($numPlayers > self::MAX_NUM_PLAYERS) {
-            throw new \InvalidArgumentException(
-                sprintf('Please provide a lower number of participants, max allowed is %d', self::MAX_NUM_PLAYERS)
-            );
-        }
-
-        for ($i = 0; $i < $numPlayers; $i++) {
-            $this->players[] = new Player($this->cardGenerator->generate());
-        }
     }
 }
