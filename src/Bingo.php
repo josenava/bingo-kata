@@ -56,10 +56,9 @@ class Bingo
                 }
             }
         }
-        $this->logger->info(sprintf(
-            'Winners: %s',
-            implode(' ', array_map(function (Player $player) { return (string) $player;}, $this->winners))
-        ));
+        foreach ($this->winners as $winner) {
+            $this->logger->info(sprintf('Winner card: %s', $winner->getCard()));
+        }
 
         $this->logger->info('The game just finished.');
     }

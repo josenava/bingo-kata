@@ -4,8 +4,6 @@ namespace Bingo;
 
 interface CardInterface
 {
-    public function print(): void;
-
     /**
      * @param int $number
      *

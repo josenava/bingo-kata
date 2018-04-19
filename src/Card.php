@@ -28,14 +28,17 @@ class Card implements CardInterface
         return $this->flattenNumbers;
     }
 
-    public function print(): void
+    public function __toString(): string
     {
+        $card = '';
         for ($j = count($this->matrix[0]) - 1; $j >= 0; $j--) {
             for ($i = 0; $i < count($this->matrix); $i++) {
-                echo $this->matrix[$i][$j].' ';
+                $card .= $this->matrix[$i][$j].' ';
             }
-            echo PHP_EOL;
+            $card .= PHP_EOL;
         }
+
+        return $card;
     }
 
     /**
