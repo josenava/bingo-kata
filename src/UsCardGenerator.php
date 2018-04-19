@@ -31,6 +31,9 @@ class UsCardGenerator implements CardGeneratorInterface
         $this->dimensions = $dimensions;
     }
 
+    /**
+     * @return CardInterface
+     */
     public function generate(): CardInterface
     {
         $numbers = [];

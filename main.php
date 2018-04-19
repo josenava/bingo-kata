@@ -9,12 +9,13 @@ use \Bingo\BingoCaller;
 if ($argc < 2) {
     throw new \InvalidArgumentException(sprintf('Usage %s %s', $argv[0], 'us/uk (bingo mode)'));
 }
-if ($argv[1] === 'us') {
-    $cardGenerator = new UsCardGenerator(1, 75, [5, 5]);
-} else {
+//todo check factory CardGeneratorFactory::create()
+if ($argv[1] !== 'us') {
     // ready for implementing UKCardGenerator
     throw new \InvalidArgumentException('Mode not implemented yet.');
 }
+
+$cardGenerator = new UsCardGenerator(1, 75, [5, 5]);
 
 $numPlayers = 200;
 $bingo = new Bingo(

@@ -1,0 +1,11 @@
+version: '3.0'
+
+services:
+  php:
+    container_name: bingo-php
+    build:
+      context: ./docker/
+    volumes:
+      - ./:/bingo-kata/
+    tty: true
+    stdin_open: true
