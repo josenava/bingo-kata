@@ -1,4 +1,6 @@
 # bingo-kata
+https://agilekatas.co.uk/katas/Bingo-Kata
+
 Bingo game kata in PHP7.2
 
 ###Installation guide:
