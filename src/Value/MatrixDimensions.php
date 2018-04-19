@@ -41,6 +41,8 @@ class MatrixDimensions
      * @param int $max
      *
      * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     private function validate(int $min, int $max): bool
     {

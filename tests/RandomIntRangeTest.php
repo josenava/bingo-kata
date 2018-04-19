@@ -5,7 +5,7 @@ namespace Tests;
 use Bingo\Value\RandomIntRange;
 use PHPUnit\Framework\TestCase;
 
-final class RandomIntRangeTest extends TestCase
+class RandomIntRangeTest extends TestCase
 {
     public function testThrowsErrorWhenWrongParameters(): void
     {

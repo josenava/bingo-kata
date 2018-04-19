@@ -5,7 +5,7 @@ namespace Tests;
 use Bingo\BingoCaller;
 use PHPUnit\Framework\TestCase;
 
-final class BingoCallerTest extends TestCase
+class BingoCallerTest extends TestCase
 {
     public function testShout(): void
     {

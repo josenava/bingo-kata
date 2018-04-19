@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 
 class Bingo
 {
-    private const MAX_NUM_PLAYERS = 1000;
+    public const MAX_NUM_PLAYERS = 1000;
 
     /** @var CardGeneratorInterface */
     private $cardGenerator;

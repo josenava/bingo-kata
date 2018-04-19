@@ -6,7 +6,7 @@ use Bingo\Generator\USCardGenerator;
 use Bingo\Value\MatrixDimensions;
 use PHPUnit\Framework\TestCase;
 
-final class USCardGeneratorTest extends TestCase
+class USCardGeneratorTest extends TestCase
 {
     public function testGeneratesUSBingoCard(): void
     {
