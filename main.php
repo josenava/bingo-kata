@@ -38,7 +38,3 @@ try {
 } catch (\Exception $exception) {
     $logger->error($exception->getMessage());
 }
-
-
-
-
