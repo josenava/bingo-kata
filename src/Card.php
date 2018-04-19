@@ -6,25 +6,24 @@ class Card implements CardInterface
 {
     /** @var array */
     private $matrix;
-
     /** @var int[] */
-    private $flattenNumbers;
+    private $numbers;
 
     /**
-     * @param array $numbers
+     * @param array $cardNumberMatrix
      */
-    public function __construct(array $numbers)
+    public function __construct(array $cardNumberMatrix)
     {
-        $this->matrix = $numbers;
+        $this->matrix = $cardNumberMatrix;
         $this->setFlattenNumbers();
     }
 
     /**
      * @return array
      */
-    public function flattenNumbers(): array
+    public function numbers(): array
     {
-        return $this->flattenNumbers;
+        return $this->numbers;
     }
 
     /**
@@ -50,7 +49,7 @@ class Card implements CardInterface
      */
     public function contains(int $number): bool
     {
-        return in_array($number, $this->flattenNumbers);
+        return in_array($number, $this->numbers);
     }
 
     private function setFlattenNumbers(): void
@@ -63,7 +62,7 @@ class Card implements CardInterface
             []
         );
 
-        $this->flattenNumbers = array_filter($flattenMatrix, function ($element) {
+        $this->numbers = array_filter($flattenMatrix, function ($element) {
             return is_int($element);
         });
     }

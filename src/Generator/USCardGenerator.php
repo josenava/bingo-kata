@@ -32,17 +32,17 @@ class USCardGenerator implements CardGeneratorInterface
      */
     public function generate(): CardInterface
     {
-        $numbers = [];
+        $cardNumberMatrix = [];
         for ($i = 0; $i < $this->dimensions[0]; $i++) {
-            $numbers[$i] = RandomIntRange::create(
+            $cardNumberMatrix[$i] = RandomIntRange::create(
                 $i*$this->maxRange/$this->dimensions[0]+1,
                 ($i+1)*$this->maxRange/$this->dimensions[0],
                 $this->dimensions[0]
             );
-            rsort($numbers[$i]);
+            rsort($cardNumberMatrix[$i]);
         }
-        $numbers[self::FREE_SPACE_POSITION[0]][self::FREE_SPACE_POSITION[1]] = 'X';
+        $cardNumberMatrix[self::FREE_SPACE_POSITION[0]][self::FREE_SPACE_POSITION[1]] = 'X';
 
-        return new Card($numbers);
+        return new Card($cardNumberMatrix);
     }
 }

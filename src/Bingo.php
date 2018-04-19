@@ -11,13 +11,10 @@ class Bingo
 
     /** @var CardGeneratorInterface */
     private $cardGenerator;
-
     /** @var Player[] */
     private $players;
-
     /** @var BingoCallerInterface */
     private $bingoCaller;
-
     /** @var Player[] */
     private $winners;
     /** @var LoggerInterface */
@@ -51,7 +48,7 @@ class Bingo
             /** Player $player */
             foreach ($this->players as $player) {
                 $player->checkNumber($currentNumber);
-                if ($player->checkAllCrossed() && $this->bingoCaller->checkWinnerNumbers($player->getCard()->flattenNumbers())) {
+                if ($player->checkAllCrossed() && $this->bingoCaller->checkWinnerNumbers($player->getCard()->numbers())) {
                     $this->winners[] = $player;
                 }
             }

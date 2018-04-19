@@ -6,7 +6,6 @@ class Player
 {
     /** @var CardInterface */
     private $card;
-
     /** @var int[] */
     private $crossedNumbers;
 
@@ -42,7 +41,7 @@ class Player
      */
     public function checkAllCrossed(): bool
     {
-        return count(array_diff($this->card->flattenNumbers(), $this->crossedNumbers)) === 0;
+        return count(array_diff($this->card->numbers(), $this->crossedNumbers)) === 0;
     }
 
     /**

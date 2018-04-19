@@ -14,5 +14,5 @@ interface CardInterface
     /**
      * @return array
      */
-    public function flattenNumbers(): array;
+    public function numbers(): array;
 }
