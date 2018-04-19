@@ -2,6 +2,7 @@
 
 namespace Bingo;
 
+use Bingo\Value\PositiveInt;
 use Bingo\Value\RandomIntRange;
 
 class BingoCaller implements BingoCallerInterface
@@ -16,14 +17,18 @@ class BingoCaller implements BingoCallerInterface
     private $existsWinner;
 
     /**
-     * @param int $minRange
-     * @param int $maxRange
+     * @param PositiveInt $minRange
+     * @param PositiveInt $maxRange
      *
      * @throws \Exception
      */
-    public function __construct(int $minRange, int $maxRange)
+    public function __construct(PositiveInt $minRange, PositiveInt $maxRange)
     {
-        $this->numbersToShout = RandomIntRange::create($minRange, $maxRange, $maxRange);
+        $this->numbersToShout = RandomIntRange::create(
+            $minRange->value(),
+            $maxRange->value(),
+            $maxRange->value()
+        );
         $this->shoutedNumbers = [];
         $this->totalShouted = 0;
         $this->existsWinner = false;

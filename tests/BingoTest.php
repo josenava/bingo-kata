@@ -5,7 +5,6 @@ namespace Tests;
 use Bingo\Bingo;
 use Bingo\BingoCaller;
 use Bingo\Card;
-use Bingo\CardInterface;
 use Bingo\Generator\CardGeneratorInterface;
 use Bingo\Generator\PlayerGeneratorInterface;
 use Bingo\Player;
@@ -25,7 +24,7 @@ class BingoTest extends TestCase
         $cardGeneratorProphecy->generate()->willReturn($card);
 
         $playerProphecy = $this->prophesize(Player::class);
-        $playerProphecy->checkNumber(1)->shouldBeCalled();
+        $playerProphecy->checkNumberInCard(1)->shouldBeCalled();
         $playerProphecy->checkAllCrossed()->willReturn(true);
         $playerProphecy->getCard()->willReturn($card);
         $player = $playerProphecy->reveal();

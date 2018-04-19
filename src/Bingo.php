@@ -2,7 +2,6 @@
 
 namespace Bingo;
 
-use Bingo\Generator\CardGeneratorInterface;
 use Bingo\Generator\PlayerGeneratorInterface;
 use Psr\Log\LoggerInterface;
 
@@ -41,7 +40,7 @@ class Bingo
             $this->logger->info(sprintf('Shouted: %d', $currentNumber));
             /** Player $player */
             foreach ($this->players as $player) {
-                $player->checkNumber($currentNumber);
+                $player->checkNumberInCard($currentNumber);
                 if ($player->checkAllCrossed() && $this->bingoCaller->checkWinnerNumbers($player->getCard()->numbers())) {
                     $this->winners[] = $player;
                 }

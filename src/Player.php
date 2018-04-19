@@ -29,7 +29,7 @@ class Player
     /**
      * @param int $number
      */
-    public function checkNumber(int $number): void
+    public function checkNumberInCard(int $number): void
     {
         if ($this->card->contains($number)) {
             $this->crossedNumbers[] = $number;

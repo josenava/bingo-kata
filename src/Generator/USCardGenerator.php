@@ -5,6 +5,7 @@ namespace Bingo\Generator;
 use Bingo\Card;
 use Bingo\CardInterface;
 use Bingo\Value\MatrixDimensions;
+use Bingo\Value\PositiveInt;
 use Bingo\Value\RandomIntRange;
 
 class USCardGenerator implements CardGeneratorInterface
@@ -17,12 +18,12 @@ class USCardGenerator implements CardGeneratorInterface
     private $dimensions;
 
     /**
-     * @param int              $maxRange
+     * @param PositiveInt      $maxRange
      * @param MatrixDimensions $dimensions
      */
-    public function __construct(int $maxRange, MatrixDimensions $dimensions)
+    public function __construct(PositiveInt $maxRange, MatrixDimensions $dimensions)
     {
-        $this->maxRange = $maxRange;
+        $this->maxRange = $maxRange->value();
         $this->dimensions = $dimensions;
     }
 

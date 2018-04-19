@@ -3,14 +3,15 @@
 namespace Tests;
 
 use Bingo\BingoCaller;
+use Bingo\Value\PositiveInt;
 use PHPUnit\Framework\TestCase;
 
 class BingoCallerTest extends TestCase
 {
     public function testShout(): void
     {
-        $min = 1;
-        $max = 75;
+        $min = PositiveInt::create(1);
+        $max = PositiveInt::create(75);
         $bingoCaller = new BingoCaller($min, $max);
         $number = $bingoCaller->shoutNumber();
 
@@ -23,16 +24,16 @@ class BingoCallerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $bingoCaller = new BingoCaller(3, 1);
+        $bingoCaller = new BingoCaller(PositiveInt::create(3), PositiveInt::create(1));
     }
 
     public function testGameEndsWhenAllNumbersShouted(): void
     {
-        $min = 1;
-        $max = 10;
+        $min = PositiveInt::create(1);
+        $max = PositiveInt::create(10);
         $bingoCaller = new BingoCaller($min, $max);
 
-        for ($i = 0; $i < $max; $i++) {
+        for ($i = 0; $i < $max->value(); $i++) {
             $bingoCaller->shoutNumber();
         }
 

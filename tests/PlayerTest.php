@@ -19,7 +19,7 @@ class PlayerTest extends TestCase
         $player = new Player($cardProphecy->reveal());
 
         foreach ($numbers as $number) {
-            $player->checkNumber($number);
+            $player->checkNumberInCard($number);
         }
 
         $this->assertTrue($player->checkAllCrossed());

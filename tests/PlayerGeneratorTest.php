@@ -5,7 +5,7 @@ namespace Tests;
 use Bingo\Card;
 use Bingo\Generator\CardGeneratorInterface;
 use Bingo\Generator\PlayerGenerator;
-use Bingo\Player;
+use Bingo\Value\PositiveInt;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +21,7 @@ class PlayerGeneratorTest extends TestCase
         $cardGeneratorProphecy = $this->prophesize(CardGeneratorInterface::class);
         $cardGeneratorProphecy->generate()->willReturn($card);
 
-        $maxPlayers = PlayerGenerator::MAX_NUM_PLAYERS+1;
+        $maxPlayers = PositiveInt::create(PlayerGenerator::MAX_NUM_PLAYERS+1);
         $playerGenerator = new PlayerGenerator($cardGeneratorProphecy->reveal(), $maxPlayers);
 
         $playerGenerator->generate();
@@ -35,7 +35,7 @@ class PlayerGeneratorTest extends TestCase
         $cardGeneratorProphecy = $this->prophesize(CardGeneratorInterface::class);
         $cardGeneratorProphecy->generate()->willReturn($card);
 
-        $maxPlayers = 1;
+        $maxPlayers = PositiveInt::create(1);
         $playerGenerator = new PlayerGenerator($cardGeneratorProphecy->reveal(), $maxPlayers);
 
         $players = $playerGenerator->generate();

@@ -3,28 +3,35 @@
 namespace Bingo;
 
 use Bingo\Value\MatrixDimensions;
+use Bingo\Value\PositiveInt;
 
-class Config
+final class Config
 {
     /** @var string */
     private $version;
-    /** @var int */
+    /** @var PositiveInt */
     private $minRange;
-    /** @var int */
+    /** @var PositiveInt */
     private $maxRange;
     /** @var MatrixDimensions */
     private $dimensions;
-    /** @var int */
+    /** @var PositiveInt */
     private $numPlayers;
 
     /**
      * @param string           $version
-     * @param int              $minRange
-     * @param int              $maxRange
+     * @param PositiveInt      $minRange
+     * @param PositiveInt      $maxRange
      * @param MatrixDimensions $dimensions
-     * @param int              $numPlayers
+     * @param PositiveInt      $numPlayers
      */
-    private function __construct(string $version, int $minRange, int $maxRange, MatrixDimensions $dimensions, int $numPlayers)
+    private function __construct(
+        string $version,
+        PositiveInt $minRange,
+        PositiveInt $maxRange,
+        MatrixDimensions $dimensions,
+        PositiveInt $numPlayers
+    )
     {
         $this->version = $version;
         $this->minRange = $minRange;
@@ -49,8 +56,19 @@ class Config
             // ready for implementing UKCardGenerator
             throw new \InvalidArgumentException('Mode not implemented yet.');
         }
+        $minRange = PositiveInt::create($argv[2]);
+        $maxRange = PositiveInt::create($argv[3]);
+        $rows = PositiveInt::create($argv[4]);
+        $columns = PositiveInt::create($argv[5]);
+        $numPlayers = PositiveInt::create($argv[6]);
 
-        return new self($argv[1], $argv[2], $argv[3], new MatrixDimensions($argv[4], $argv[5]), $argv[6]);
+        return new self(
+            $argv[1],
+            $minRange,
+            $maxRange,
+            new MatrixDimensions($rows, $columns),
+            $numPlayers
+        );
     }
 
     /**
@@ -62,17 +80,17 @@ class Config
     }
 
     /**
-     * @return int
+     * @return PositiveInt
      */
-    public function getMinRange(): int
+    public function getMinRange(): PositiveInt
     {
         return $this->minRange;
     }
 
     /**
-     * @return int
+     * @return PositiveInt
      */
-    public function getMaxRange(): int
+    public function getMaxRange(): PositiveInt
     {
         return $this->maxRange;
     }
@@ -86,9 +104,9 @@ class Config
     }
 
     /**
-     * @return int
+     * @return PositiveInt
      */
-    public function getNumPlayers(): int
+    public function getNumPlayers(): PositiveInt
     {
         return $this->numPlayers;
     }

@@ -3,6 +3,7 @@
 namespace Bingo\Generator;
 
 use Bingo\Player;
+use Bingo\Value\PositiveInt;
 
 class PlayerGenerator implements PlayerGeneratorInterface
 {
@@ -15,12 +16,12 @@ class PlayerGenerator implements PlayerGeneratorInterface
 
     /**
      * @param CardGeneratorInterface $cardGenerator
-     * @param int                    $numPlayers
+     * @param PositiveInt            $numPlayers
      */
-    public function __construct(CardGeneratorInterface $cardGenerator, int $numPlayers)
+    public function __construct(CardGeneratorInterface $cardGenerator, PositiveInt $numPlayers)
     {
         $this->cardGenerator = $cardGenerator;
-        $this->numPlayers = $numPlayers;
+        $this->numPlayers = $numPlayers->value();
     }
 
     /**

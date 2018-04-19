@@ -10,14 +10,13 @@ class MatrixDimensions
     private $rows;
 
     /**
-     * @param int $rows
-     * @param int $columns
+     * @param PositiveInt $rows
+     * @param PositiveInt $columns
      */
-    public function __construct(int $rows, int $columns)
+    public function __construct(PositiveInt $rows, PositiveInt $columns)
     {
-        $this->validate($rows, $columns);
-        $this->rows = $rows;
-        $this->columns = $columns;
+        $this->rows = $rows->value();
+        $this->columns = $columns->value();
     }
 
     /**
@@ -34,22 +33,5 @@ class MatrixDimensions
     public function getColumns(): int
     {
         return $this->columns;
-    }
-
-    /**
-     * @param int $min
-     * @param int $max
-     *
-     * @return bool
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function validate(int $min, int $max): bool
-    {
-        if ($min < 1 || $max < 1) {
-            throw new \InvalidArgumentException('Please provide bigger dimensions for the matrix');
-        }
-
-        return true;
     }
 }
