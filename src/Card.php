@@ -15,7 +15,7 @@ class Card implements CardInterface
     public function __construct(array $cardNumberMatrix)
     {
         $this->matrix = $cardNumberMatrix;
-        $this->setFlattenNumbers();
+        $this->setNumbersFromMatrix();
     }
 
     /**
@@ -52,7 +52,7 @@ class Card implements CardInterface
         return in_array($number, $this->numbers);
     }
 
-    private function setFlattenNumbers(): void
+    private function setNumbersFromMatrix(): void
     {
         $flattenMatrix = array_reduce(
             $this->matrix,
@@ -61,7 +61,7 @@ class Card implements CardInterface
             },
             []
         );
-
+        // removes the "free spaces"
         $this->numbers = array_filter($flattenMatrix, function ($element) {
             return is_int($element);
         });
