@@ -2,7 +2,6 @@
 
 namespace Bingo\Generator;
 
-
 use Bingo\Player;
 
 interface PlayerGeneratorInterface
