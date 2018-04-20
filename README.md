@@ -16,7 +16,9 @@ Parameters explained:
 - `200` -> number of players.
 
 Right now all those parameters are passed to `main.php` script but ideally they should
-be read from a config file which will contain the rules of the US Bingo.
+be read from a config file which will contain the rules of the US Bingo, also some more
+in depth validation is missing in the config ie: Throwing proper errors when strings are passed
+instead of int.
 
 In case you want to use docker, there are a couple of commands in the Makefile:
 - `make start-docker`

@@ -24,8 +24,8 @@ if ($argv[1] === '--help') {
 }
 
 try {
-    $config = Config::fromArgs($argv);
     $logger = new Logger('Bingo');
+    $config = Config::fromArgs($argv);
     // as there is only an implementation for US rules, it is assigned here, otherwise it would be
     // taken from $config->getVersion()
     $cardGenerator = new USCardGenerator($config->getMaxRange(), $config->getDimensions());
