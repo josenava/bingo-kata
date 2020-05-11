@@ -13,6 +13,20 @@
         }
     ],
     "require": {
-        "php": ">= 7.2"
+        "php": ">= 7.2",
+        "monolog/monolog": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bingo\\": "src/"
+        },
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }
