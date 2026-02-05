@@ -3,7 +3,7 @@
     "description": "bingo kata",
     "type": "project",
     "require-dev": {
-        "phpunit/phpunit": "^7.1"
+        "phpunit/phpunit": "^8.5"
     },
     "license": "MIT",
     "authors": [
